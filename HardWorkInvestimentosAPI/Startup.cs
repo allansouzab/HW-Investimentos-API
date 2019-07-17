@@ -26,6 +26,17 @@ namespace HardWorkInvestimentosAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                      builder =>
+                      {
+                          builder.AllowAnyOrigin()
+                                 .AllowAnyHeader()
+                                 .AllowAnyMethod();
+                      });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,6 +53,7 @@ namespace HardWorkInvestimentosAPI
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            app.UseCors("AllowAllHeaders");
         }
     }
 }
